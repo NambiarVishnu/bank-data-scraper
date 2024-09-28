@@ -3,6 +3,7 @@ package com.NetWorth.Transaction.Controller;
 import com.NetWorth.Transaction.Service.ConvertFileService;
 import com.NetWorth.Transaction.Service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,14 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @RestController
-@RequestMapping("/api")
-public class uploadFile {
+@RequestMapping("/tx-details")
+public class TransactionDetails {
     @Autowired
     private  ConvertFileService convertFileService;
 
@@ -25,10 +24,11 @@ public class uploadFile {
     private TransactionService transactionService;
 
 
-    @PostMapping("/uploadStatement")
+    @PostMapping("/upload-statement")
     public ResponseEntity<?> handleFile(@RequestParam("file") MultipartFile file){
         if(file.isEmpty()){
-            return ResponseEntity.badRequest().body("NO FILE HAS BEEN UPLOADED");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("INVALID FILE");
+
         }
         try {
             // Convert PDF to Excel using the service directly
