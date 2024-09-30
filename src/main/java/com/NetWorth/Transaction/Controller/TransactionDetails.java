@@ -1,6 +1,6 @@
 package com.NetWorth.Transaction.Controller;
 
-import com.NetWorth.Transaction.Service.ConvertFile;
+import com.NetWorth.Transaction.Service.ConvertFileService;
 import com.NetWorth.Transaction.Service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import java.util.Map;
 @RequestMapping("/v1/tx-details")
 public class TransactionDetails {
     @Autowired
-    private  ConvertFile convertFile;
+    private ConvertFileService convertFileService;
 
     @Autowired
     private TransactionService transactionService;
@@ -32,7 +32,7 @@ public class TransactionDetails {
         }
         try {
             // Convert PDF to Excel using the service directly
-            String excelFile = convertFile.pdfToExcel(file);
+            String excelFile = convertFileService.pdfToExcel(file);
             List<Map<String,Object>> transactionDetails= transactionService.extractDetails(excelFile);
 //            return ResponseEntity.ok("File converted successfully. Download Link: " + excelFile);
               return ResponseEntity.ok(transactionDetails);
