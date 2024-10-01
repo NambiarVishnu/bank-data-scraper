@@ -34,7 +34,7 @@ Build the project using Maven:
 ```
 ## Technologies Used
 
-- Java 11: The core programming language
+- Java 17: The core programming language
 - Spring Boot: For building the application
 - Aspose Pdf: Converting PDF to Excel
 - Apache POI: For handling Excel operations
