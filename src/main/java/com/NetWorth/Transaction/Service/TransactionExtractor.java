@@ -45,8 +45,8 @@ public class TransactionExtractor {
                     }
 
                     if (header1Index != -1 && header2Index != -1) {
-                        headerRowIndex = i;  // Mark the row index where headers are found
-                        break;  // Exit the loop once the headers are found
+                        headerRowIndex = i;
+                        break;
                     }
                 }
             }

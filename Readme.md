@@ -21,8 +21,7 @@ Clone the repository
 ```
 Navigate to the project directory:
 ```bash
- cd bank-data-transaction
-
+ cd bank-data-scraper
 
 ```
 
@@ -49,9 +48,9 @@ Build the project using Maven:
   POST /v1/tx-details/upload-statement
 ```
 
-| Parameter | Type        | Description    |
-|:----------|:------------|:---------------|
-| `file`    | `multipart` | **Required**.  |
+| Parameter | Type            | Description    |
+|:----------|:----------------|:---------------|
+| `file`    | `multipartfile` | **Required**.  |
 
 
 
@@ -63,11 +62,11 @@ Build the project using Maven:
   POST /v2/tx-details/upload-statement
 ```
 
-| Parameter | Type        | Description    |
-|:----------|:------------|:---------------|
-| `file`    | `multipart` | **Required**.  |
-| `header1` | `String`    | **Required**   |
-| `header2` | `String`    | **Required**   |
+| Parameter | Type            | Description    |
+|:----------|:----------------|:---------------|
+| `file`    | `multipartfile` | **Required**.  |
+| `header1` | `String`        | **Required**   |
+| `header2` | `String`        | **Required**   |
 
 ## API RESPONSE
 The response will contain the extracted data in JSON format(or Excel file will be saved in the local storage).
