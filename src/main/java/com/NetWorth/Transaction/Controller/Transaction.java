@@ -2,6 +2,9 @@ package com.NetWorth.Transaction.Controller;
 
 import com.NetWorth.Transaction.Service.ConvertFileService;
 import com.NetWorth.Transaction.Service.TransactionExtractor;
+import com.NetWorth.Transaction.Service.TransactionSave;
+import com.NetWorth.Transaction.model.BankData;
+import com.NetWorth.Transaction.repository.BankDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +24,21 @@ public class Transaction {
     private TransactionExtractor transactionExtractor;
     @Autowired
     private ConvertFileService convertFileService;
+    @Autowired
+    private BankDataRepository bankDataRepository;
+    @Autowired
+    private TransactionSave transactionSave;
 
     @PostMapping("/upload-statement")
     public ResponseEntity<?> handleFile(@RequestParam("file") MultipartFile file,
                                         @RequestParam(value = "h1",  defaultValue = "Particulars") String header1,
                                         @RequestParam(value = "h2",  defaultValue = "Deposits") String header2) {
+
+//        BankData bankdata =new BankData();
+//        bankdata.setTxndetails(header1);
+//        bankdata.setAmount(header2);
+//        bankdata=bankDataRepository.save(bankdata);
+
         if (file.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("INVALID FILE");
 
@@ -35,6 +48,7 @@ public class Transaction {
             String excelFile = convertFileService.pdfToExcel(file);
             List<Map<String, Object>> transactionDetails = transactionExtractor.extractDetails(excelFile, header1, header2,1,100);
             // return ResponseEntity.ok("File converted successfully. Download Link: " + excelFile);
+            transactionSave.saveExtractedData(transactionDetails);
             return ResponseEntity.ok(transactionDetails);
 
         } catch (Exception e) {
