@@ -2,6 +2,7 @@ package com.NetWorth.Transaction.Service;
 import com.aspose.pdf.ExcelSaveOptions;
 import com.aspose.pdf.Document;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,7 +18,7 @@ public class ConvertFileService {
     private String uploadDir;
 
     private AtomicInteger fileCounter = new AtomicInteger(0);
-    public String pdfToExcel(MultipartFile file) throws IOException {
+    public  String pdfToExcel(MultipartFile file) throws IOException {
 
         Files.createDirectories(Paths.get(uploadDir));
 
